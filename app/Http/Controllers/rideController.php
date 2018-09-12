@@ -43,8 +43,22 @@ class rideController extends Controller
             $ride->tolat = array_get($json, 'results.0.geometry.location.lat');
             $ride->tolong = array_get($json, 'results.0.geometry.location.lng');
         }
+//        $ride->fromlat = 43.6777;
+//        $ride->fromlong = 79.6248;
+//        $ride->tolat = 43.6459;
+//        $ride->tolong = 79.3815;
         $ride->save();
-        return view('displayFares')->with('ride',$ride);
+        $client = new GuzzleHttp\Client();
+        $toprint = $client->get('https://sandbox-api.uber.com/v1.2/estimates/price?start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075',
+            [
+            'headers'=>     [
+                'Authorization' => 'Token IP4hv9v5zJGq5cb5mIwUnGAGfc0giW2BETD1e1cu',
+            ],
+        ]);
+        $json = json_decode($toprint->getBody(),true);
+        \Log::alert('the response is as follows');
+        \Log::alert($json);
+        return view('displayFares')->with('json',$json);
     }
 
 }
