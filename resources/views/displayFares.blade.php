@@ -13,7 +13,7 @@
                     {{$value['localized_display_name']}}
                 </div>
                 <div class="card-body">
-                    {{'Fare Estimate:'.$value['low_estimate'].'-'.$value['high_estimate']}}
+                    {{'Fare Estimate: USD$'.$value['low_estimate'].'-'.$value['high_estimate']}}
                     <br>
                     {{--{{'Distance:'.$value['distance']}}--}}
                     {{--{{'Duration:'.$value['duration']}}--}}
@@ -22,5 +22,8 @@
             </div>
         </div>
     @endforeach
+    </div>
+    <div class="center-wrapper">
+        <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
     </div>
 @endsection
